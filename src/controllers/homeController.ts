@@ -72,33 +72,18 @@ export const home = async (req: Request, res: Response)=>{
     //segunda forma
     // a vantagem da segunda forma é que podemos alterar os dados antes de enviá-los ao Mongo, exemplo: recebemos a data de nascimento então calculamos a idade para só então salva-la no age do banco
     //primeiro cria a instancia do dado dentro do Node
-    let newUser = new User();
-        newUser.name = {firstName:'André',lastName:'Soares'};
-        newUser.email = 'andre@email.com'
-        newUser.age = 40
-        newUser.interests = ['skate','programação']
-    //depois se salva o dado no Mongo
-    let resultado = await newUser.save()
+    // let newUser = new User();
+    //     newUser.name = {firstName:'André',lastName:'Soares'};
+    //     newUser.email = 'andre@email.com'
+    //     newUser.age = 40
+    //     newUser.interests = ['skate','programação']
+    // //depois se salva o dado no Mongo
+    // let resultado = await newUser.save()
 
-    console.log('NOVO USUARIO: ',resultado);
+    // console.log('NOVO USUARIO: ',resultado);
 
+    let usuarios = await User.find({});
+    
 
-    let age: number = 90;
-    let showOld: boolean = false;
-
-    if(age > 50) {
-        showOld = true;
-    }
-
-    let list = Product.getAll();
-    let expensiveList = Product.getFromPriceAfter(12);
-
-    res.render('pages/home', {
-        name: 'Bonieky',
-        lastName: 'Lacerda',
-        showOld,
-        products: list,
-        expensives: expensiveList,
-        frasesDoDia: []
-    });
+    res.render('pages/home',{usuarios});
 };

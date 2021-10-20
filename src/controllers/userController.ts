@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import User from '../models/User';
 
 export const nome = (req: Request, res: Response) => {
     let nome: string = req.query.nome as string;
@@ -29,4 +30,28 @@ export const idadeAction = (req: Request, res: Response) => {
         idade,
         mostrarIdade
     });
+};
+
+export const addUserAction = async (req:Request,res:Response)=>{
+    let {firstName,lastName,age,email,interests} = req.body;
+    let interesses = interests.split(',');
+
+    let newUser = new User();
+        newUser.name = {firstName,lastName};
+        newUser.email = email;
+        newUser.age = parseInt(age);
+        newUser.interests = interesses;
+
+    try{
+        await newUser.save();
+        console.log('Usuário adicionado com sucesso!');
+    }catch(error){
+        console.log('Erro ao adicionar usuário: ',error);
+    }
+
+
+    console.log(newUser)
+
+    res.redirect('/');
+
 };
