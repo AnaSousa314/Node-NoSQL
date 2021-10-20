@@ -41,9 +41,20 @@ export const home = async (req: Request, res: Response)=>{
     // se colocar 1 será ascendente
     // se colocar -1 será descendente
     // a segunda condição no sort serve para quando existem valores iguais, ele cai na segunda condição de ordenação. A segunda condição não é obrigatória
+    // let usuarios = await User.find({
+    //     age: { $gt:18 }
+    // }).sort({ "name.firstName": 1, age: -1 });
+
+
+    //aula 14 limitar e pular resultados
+    // let usuarios = await User.find({
+    //     age: { $gt:18 }
+    // }).limit(2);
+
+    // skip serve para pular dados
     let usuarios = await User.find({
         age: { $gt:18 }
-    }).sort({ "name.firstName": 1, age: -1 });
+    }).skip(2).limit(2);
 
     console.log('USUARIOS',usuarios);
 
