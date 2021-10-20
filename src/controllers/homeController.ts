@@ -52,13 +52,35 @@ export const home = async (req: Request, res: Response)=>{
     // }).limit(2);
 
     // skip serve para pular dados
-    let usuarios = await User.find({
-        age: { $gt:18 }
-    }).skip(2).limit(2);
+    // let usuarios = await User.find({
+    //     age: { $gt:18 }
+    // }).skip(2).limit(2);
 
-    console.log('USUARIOS',usuarios);
+    // console.log('USUARIOS',usuarios);
 
-    
+    //aula15 inserindo dados no Mongo
+    // o __v que aparece na criação do dado, serve para indicar quantas vezes aquele dado já foi alterado
+
+    //primeiro metodo
+    // let newUser = await User.create({
+    //     name: {firstName:'Monalisa',lastName:'Fernandes'},
+    //     email: 'mona@email.com',
+    //     age: 200,
+    //     interests: ['arte','tinta']
+    // });
+
+    //segunda forma
+    // a vantagem da segunda forma é que podemos alterar os dados antes de enviá-los ao Mongo, exemplo: recebemos a data de nascimento então calculamos a idade para só então salva-la no age do banco
+    //primeiro cria a instancia do dado dentro do Node
+    let newUser = new User();
+        newUser.name = {firstName:'André',lastName:'Soares'};
+        newUser.email = 'andre@email.com'
+        newUser.age = 40
+        newUser.interests = ['skate','programação']
+    //depois se salva o dado no Mongo
+    let resultado = await newUser.save()
+
+    console.log('NOVO USUARIO: ',resultado);
 
 
     let age: number = 90;
