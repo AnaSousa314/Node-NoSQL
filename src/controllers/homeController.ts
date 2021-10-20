@@ -32,9 +32,18 @@ export const home = async (req: Request, res: Response)=>{
         $lt = Lower Than = Abaixo de
         $lte = Lower or Equal = Menor ou Igual
     */
+    // let usuarios = await User.find({
+    //     age: { $gt:20 }
+    // });
+
+
+    //aula 13 ordenando resultados
+    // se colocar 1 será ascendente
+    // se colocar -1 será descendente
+    // a segunda condição no sort serve para quando existem valores iguais, ele cai na segunda condição de ordenação. A segunda condição não é obrigatória
     let usuarios = await User.find({
-        age: { $gt:20 }
-    });
+        age: { $gt:18 }
+    }).sort({ "name.firstName": 1, age: -1 });
 
     console.log('USUARIOS',usuarios);
 
