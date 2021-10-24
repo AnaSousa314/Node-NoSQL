@@ -104,28 +104,32 @@ export const home = async (req: Request, res: Response)=>{
     // await pablo.save();
 
     // 4ª Não é muito usada pois é o mesmo que updateOne
-    /* let user =  */await User.findOneAndUpdate(
-        {email: 'jacinta@email.com'},
-        {$set:{age: 60}},
-        {new: true,
-        rawResult: true
-        },
+    // /* let user =  */await User.findOneAndUpdate(
+    //     {email: 'jacinta@email.com'},
+    //     {$set:{age: 60}},
+    //     {new: true,
+    //     rawResult: true
+    //     },
         
-        (err,doc) =>{
-            if(err){
-                console.log('Algo deu errado nessa atualização!');
-            }
-            console.log(doc)
-        }
-    );
-
-    // Cat.findOneAndUpdate({age: 17}, {$set:{name:"Naomi"}}, {new: true}, (err, doc) => {
-    //     if (err) {
-    //         console.log("Something wrong when updating data!");
+    //     (err,doc) =>{
+    //         if(err){
+    //             console.log('Algo deu errado nessa atualização!');
+    //         }
+    //         console.log(doc)
     //     }
+    // );
+
     
-    //     console.log(doc);
-    // });
+    //aula18 deletando dados
+
+    // 1ª com delete
+    // await User.findOneAndDelete(
+    //     {email: 'monalisa@email.com'}
+    // );
+
+    // 2ª com remove
+    let pablo = await User.findOne({email:'pablo@email.com'})
+    await pablo.remove();
 
     let usuarios = await User.find({});
 
