@@ -81,9 +81,53 @@ export const home = async (req: Request, res: Response)=>{
     // let resultado = await newUser.save()
 
     // console.log('NOVO USUARIO: ',resultado);
+    
+    //aula17 atualizando dados
+
+    // 1ª atualizando varios ao mesmo tempo
+    // await User.updateMany(
+    //     { age:{ $lte:18 }},//condicao de busca
+    //     { age:18 }//alteracao aplicada
+    // );
+    
+    // 2ª atualizando apenas um
+    // await User.updateOne(
+    //     { email: 'joao@email.com'},//condicao de busca
+    //     { age:46 }//alteracao aplicada
+    // );
+
+    // 3ª atualizando apenas um só que com save
+    // let pablo = await User.findOne({email:'pablo@email.com'});
+
+    // pablo.name.lastName = 'Andrade';
+    // pablo.age = 50;
+    // await pablo.save();
+
+    // 4ª Não é muito usada pois é o mesmo que updateOne
+    /* let user =  */await User.findOneAndUpdate(
+        {email: 'jacinta@email.com'},
+        {$set:{age: 60}},
+        {new: true,
+        rawResult: true
+        },
+        
+        (err,doc) =>{
+            if(err){
+                console.log('Algo deu errado nessa atualização!');
+            }
+            console.log(doc)
+        }
+    );
+
+    // Cat.findOneAndUpdate({age: 17}, {$set:{name:"Naomi"}}, {new: true}, (err, doc) => {
+    //     if (err) {
+    //         console.log("Something wrong when updating data!");
+    //     }
+    
+    //     console.log(doc);
+    // });
 
     let usuarios = await User.find({});
-    
 
     res.render('pages/home',{usuarios});
 };
